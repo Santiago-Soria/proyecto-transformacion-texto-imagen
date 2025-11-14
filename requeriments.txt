@@ -6,3 +6,5 @@ torch
 jupyterlab
 openpyxl
 nltk
+matplotlib
+seaborn
