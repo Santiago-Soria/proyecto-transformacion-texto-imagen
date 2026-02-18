@@ -1,6 +1,7 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, f1_score
 import joblib
+import os
 
 def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generic"):
     print(f"Entrenando Regresión Logística para {experiment_name}...")
@@ -15,6 +16,14 @@ def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generi
     print(f"--- Resultados {experiment_name} ---")
     print(classification_report(y_test, preds))
     
-    # Guardar modelo
-    joblib.dump(clf, f"models/{experiment_name}.pkl")
+    # Guardar modelo 
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Carpeta models fuera de src → sube un nivel y luego models
+    models_dir = os.path.join(base_dir, "..", "..", "models")
+    os.makedirs(models_dir, exist_ok=True)
+
+    model_path = os.path.join(models_dir, f"{experiment_name}.pkl")
+    joblib.dump(clf, model_path)
+
     return clf, preds
