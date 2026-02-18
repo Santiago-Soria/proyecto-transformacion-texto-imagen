@@ -6,16 +6,19 @@ import os
 def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generic", models_dir=None):
     print(f"Entrenando Regresión Logística para {experiment_name}...")
     
-    # Class_weight='balanced' es CRÍTICO por tu desbalance 60/40
+    # Entrenamiento
     clf = LogisticRegression(class_weight='balanced', solver='liblinear', random_state=42)
     clf.fit(X_train, y_train)
     
+    # Evaluación
     preds = clf.predict(X_test)
+    score = f1_score(y_test, preds, average='macro')
     
     # Reporte
     print(f"--- Resultados {experiment_name} ---")
     print(classification_report(y_test, preds))
-    
+    print(f"\n---> Resultado (Macro-F1) - {experiment_name}: {score:.4f}")
+
     # Guardar modelo - Compatible con local y Colab
     if models_dir is None:
         # Intentar detectar el entorno
@@ -41,4 +44,4 @@ def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generi
     joblib.dump(clf, model_path)
     print(f"✓ Modelo guardado en: {model_path}")
     
-    return clf, preds
+    return clf, preds, score
