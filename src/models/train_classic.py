@@ -3,7 +3,7 @@ from sklearn.metrics import classification_report, f1_score
 import joblib
 import os
 
-def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generic"):
+def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generic", models_dir=None):
     print(f"Entrenando Regresión Logística para {experiment_name}...")
     
     # Class_weight='balanced' es CRÍTICO por tu desbalance 60/40
@@ -16,14 +16,29 @@ def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generi
     print(f"--- Resultados {experiment_name} ---")
     print(classification_report(y_test, preds))
     
-    # Guardar modelo 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-
-    # Carpeta models fuera de src → sube un nivel y luego models
-    models_dir = os.path.join(base_dir, "..", "..", "models")
+    # Guardar modelo - Compatible con local y Colab
+    if models_dir is None:
+        # Intentar detectar el entorno
+        try:
+            # Si estamos en un archivo .py (local)
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            models_dir = os.path.join(base_dir, "..", "..", "models")
+        except NameError:
+            # Si estamos en notebook (Colab o Jupyter)
+            # Buscar la carpeta models desde el directorio actual
+            if os.path.exists('/content/proyecto-transformacion-texto-imagen'):
+                # Estamos en Colab
+                models_dir = '/content/proyecto-transformacion-texto-imagen/models'
+            else:
+                # Estamos en otro notebook, usar directorio actual
+                models_dir = './models'
+    
+    # Crear directorio si no existe
     os.makedirs(models_dir, exist_ok=True)
-
+    
+    # Guardar modelo
     model_path = os.path.join(models_dir, f"{experiment_name}.pkl")
     joblib.dump(clf, model_path)
-
+    print(f"✓ Modelo guardado en: {model_path}")
+    
     return clf, preds

@@ -20,7 +20,6 @@ class DepressionDataset(Dataset):
         }
 
 def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name="PlanTL-GOB-ES/roberta-base-bne"):
-    """Exp 3.2: Fine-Tuning RoBERTa"""
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
     
@@ -28,7 +27,8 @@ def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name=
     val_ds = DepressionDataset(val_texts, val_labels, tokenizer)
     
     args = TrainingArguments(
-        output_dir=f"models/checkpoints/{model_name}",
+        safe_model_name = model_name.replace("/", "_")
+        output_dir=f"models/checkpoints/{safe_model_name}"
         evaluation_strategy="epoch",
         save_strategy="epoch",
         learning_rate=2e-5,
