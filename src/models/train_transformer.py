@@ -29,7 +29,7 @@ def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name=
     
     args = TrainingArguments(
         output_dir=f"models/checkpoints/{safe_model_name}",
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         learning_rate=2e-5,
         per_device_train_batch_size=16,
