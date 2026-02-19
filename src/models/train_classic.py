@@ -15,9 +15,9 @@ def train_logistic(X_train, y_train, X_test, y_test, experiment_name="exp_generi
     score = f1_score(y_test, preds, average='macro')
     
     # Reporte
+    print(f"\n---> Resultado (Macro-F1) - {experiment_name}: {score:.4f}")
     print(f"--- Resultados {experiment_name} ---")
     print(classification_report(y_test, preds))
-    print(f"\n---> Resultado (Macro-F1) - {experiment_name}: {score:.4f}")
 
     # Guardar modelo - Compatible con local y Colab
     if models_dir is None:
