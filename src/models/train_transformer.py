@@ -25,9 +25,9 @@ def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name=
     
     train_ds = DepressionDataset(train_texts, train_labels, tokenizer)
     val_ds = DepressionDataset(val_texts, val_labels, tokenizer)
+    safe_model_name = model_name.replace("/", "_")
     
     args = TrainingArguments(
-        safe_model_name = model_name.replace("/", "_"),
         output_dir=f"models/checkpoints/{safe_model_name}",
         evaluation_strategy="epoch",
         save_strategy="epoch",
