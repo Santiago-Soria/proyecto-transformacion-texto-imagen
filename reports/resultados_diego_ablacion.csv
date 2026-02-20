@@ -2,3 +2,7 @@ Experimento,Preprocessing,Modelo,Macro F1 Score
 1.2 (P3+TFIDF),Lematización + StopWords,LogReg,0.6695652173913043
 2.2 (P2+Embeddings),StopWords Custom,LogReg,0.7524223187437353
 3.2 (P2+FineTuning),StopWords Custom,Transformer (Beto),0.7199475925319359
+2.1 (Frozen),Limpieza Básica,BETO + LogReg,0.6668831168831169
+2.4 (Frozen),Limpieza Básica,XLM-RoBERTa + LogReg,0.6799550814149354
+3.1 (Fine-Tuning),Limpieza Básica,Transformer (BETO),0.741132
+3.4 (Fine-Tuning),Limpieza Básica,Transformer (XLM-RoBERTa),0.691891
