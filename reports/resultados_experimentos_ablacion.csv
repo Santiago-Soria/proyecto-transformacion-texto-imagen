@@ -1,0 +1,13 @@
+Experimento,Preprocessing,Modelo,Macro F1 Score
+1.1 (P1+TF-IDF),Limpiez Básica,LogReg,0.6853896103896104
+1.2 (P3+TFIDF),Lematización + StopWords,LogReg,0.6879227053140097
+2.1 (Frozen),Limpieza Básica,BETO + LogReg,0.6668831168831169
+2.2 (Frozen),Limpieza Básica,RoBERTa ES,0.609557945041816
+2.3 (Frozen),Limpieza Básica,DeBERTa,0.5260454878943507
+2.4 (Frozen),Limpieza Básica,XLM-RoBERTa + LogReg,0.6799550814149354
+3.1 (Fine-Tuning),Limpieza Básica,Transformer (BETO),0.741132
+3.2 (Fine-Tuning),Limpieza Básica,RoBERTa ES,0.6764427625354777
+3.3 (Fine-Tuning),Limpieza Básica,DeBERTa,0.3804347826086957
+3.4 (Fine-Tuning),Limpieza Básica,Transformer (XLM-RoBERTa),0.691891
+,,,
+Ganador:,3.1,,
