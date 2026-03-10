@@ -9,12 +9,14 @@ class FeatureExtractor:
     def __init__(self):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    def get_tfidf(self, texts, max_features=5000, ngram_range=(1, 2)):
+    def get_tfidf(self, X_train, X_val, X_test, max_features=5000, ngram_range=(1, 2)):
         vectorizer = TfidfVectorizer(max_features=max_features, ngram_range=ngram_range)
-        X = vectorizer.fit_transform(texts)
-        return X, vectorizer
+        X_train_tfidf = vectorizer.fit_transform(X_train)  # aprende vocabulario de train
+        X_val_tfidf   = vectorizer.transform(X_val)        # solo transforma, no aprende
+        X_test_tfidf  = vectorizer.transform(X_test)       # solo transforma, no aprende
+        return X_train_tfidf, X_val_tfidf, X_test_tfidf, vectorizer
 
-    def get_transformer_embeddings(self, texts, model_name="PlanTL-GOB-ES/roberta-base-bne", batch_size=32):
+    def get_frozen_embeddings(self, texts, model_name, batch_size=32):
         print(f"--> Extrayendo embeddings con {model_name}...")
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModel.from_pretrained(model_name).to(self.device)

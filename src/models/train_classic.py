@@ -5,25 +5,35 @@ import numpy as np
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
+    f1_score,
     accuracy_score,
     precision_recall_fscore_support,
     classification_report,
     confusion_matrix
 )
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def train_logistic(
     X_train,
     y_train,
+    X_val,
+    y_val,
     X_test,
     y_test,
     experiment_name="exp_generic",
     models_dir=None
 ):
+    
+    model_path = os.path.join(models_dir, f"{experiment_name}.pkl")
+    results_dir = os.path.join(models_dir, "..", "results")
+    os.makedirs(results_dir, exist_ok=True)
+
     print(f"\nEntrenando Regresión Logística para: {experiment_name}")
 
     # ==============================
-    # Entrenamiento
+    # Entrenamiento (sobre train)
     # ==============================
     clf = LogisticRegression(
         class_weight="balanced",
@@ -35,39 +45,79 @@ def train_logistic(
     clf.fit(X_train, y_train)
 
     # ==============================
-    # Evaluación
+    # Validación (sobre validation)
     # ==============================
-    preds = clf.predict(X_test)
+    preds_val = clf.predict(X_val)
+    f1_val = f1_score(y_val, preds_val, average="macro")
 
-    precision, recall, f1, _ = precision_recall_fscore_support(
-        y_test,
-        preds,
-        average="macro"
+    # ==============================
+    # Evaluación (sobre test)
+    # ==============================
+    preds_test = clf.predict(X_test)
+    precision, recall, f1_test, _ = precision_recall_fscore_support(
+    y_test, preds_test, average='macro')
+    accuracy = accuracy_score(y_test, preds_test)
+
+    print(f"\n{'='*50}")
+    print(f"  {experiment_name}")
+    print(f"{'='*50}")
+    print(f"  Val  F1-Macro:  {f1_val:.4f}")
+    print(f"  Test Accuracy:  {accuracy:.4f}")
+    print(f"  Test Precision: {precision:.4f}")
+    print(f"  Test Recall:    {recall:.4f}")
+    print(f"  Test F1-Macro:  {f1_test:.4f}  ← métrica principal")
+    print(f"\n{classification_report(y_test, preds_test, target_names=['No Dep','Dep'], zero_division=0)}")
+
+    # Matriz de Confusión
+    cm = confusion_matrix(y_test, preds_test)
+    print("\nConfusion Matrix:")
+    plt.figure(figsize=(6,5))
+
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=["No Dep", "Dep"],
+        yticklabels=["No Dep", "Dep"]
     )
 
-    accuracy = accuracy_score(y_test, preds)
-    cm = confusion_matrix(y_test, preds)
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title(f"Confusion Matrix - {experiment_name}")
 
-    print("\nResultados:")
-    print(f"Accuracy: {accuracy:.4f}")
-    print(f"Precision (Macro): {precision:.4f}")
-    print(f"Recall (Macro): {recall:.4f}")
-    print(f"F1 (Macro): {f1:.4f}")
+    plt.show()    
+    plt.savefig(os.path.join(results_dir, f"{experiment_name}_confusion_matrix.png"))
 
-    print("\nConfusion Matrix:")
-    print(cm)
+    # Matríz de Confusión Normalizada
+    cm_norm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
-    print("\n📄 Classification Report:")
-    print(classification_report(y_test, preds))
+    sns.heatmap(
+        cm_norm,
+        annot=True,
+        fmt=".2f",
+        cmap="Blues",
+        xticklabels=["No Dep", "Dep"],
+        yticklabels=["No Dep", "Dep"]
+    )
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title(f"Normalized Confusion Matrix - {experiment_name}")
+
+    plt.show()    
+    plt.savefig(os.path.join(results_dir, f"{experiment_name}_confusion_matrix_norm.png"))
+
 
     # ==============================
     # Métricas estructuradas
     # ==============================
     metrics = {
-        "accuracy": float(accuracy),
-        "precision_macro": float(precision),
-        "recall_macro": float(recall),
-        "f1_macro": float(f1)
+        'experiment':       experiment_name,
+        'f1_macro_val':     round(f1_val, 4),
+        'f1_macro_test':    round(f1_test, 4),
+        'accuracy_test':    round(accuracy, 4),
+        'precision_macro':  round(precision, 4),
+        'recall_macro':     round(recall, 4),
     }
 
     # ==============================
@@ -90,7 +140,6 @@ def train_logistic(
     # ==============================
     # Guardar modelo
     # ==============================
-    model_path = os.path.join(models_dir, f"{experiment_name}.pkl")
     joblib.dump(clf, model_path)
 
     print(f"\nModelo guardado en: {model_path}")
@@ -98,9 +147,6 @@ def train_logistic(
     # ==============================
     # Guardar métricas (JSON)
     # ==============================
-    results_dir = os.path.join(models_dir, "..", "results")
-    os.makedirs(results_dir, exist_ok=True)
-
     results_path = os.path.join(results_dir, f"{experiment_name}_metrics.json")
 
     with open(results_path, "w") as f:
@@ -111,4 +157,4 @@ def train_logistic(
     # ==============================
     # Retorno estructurado
     # ==============================
-    return clf, preds, metrics
+    return clf, preds_test, metrics
