@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_2.2_RoBERTa_Frozen_LogReg",
+    "f1_macro_val": 0.6402,
+    "f1_macro_test": 0.6096,
+    "accuracy_test": 0.6228,
+    "precision_macro": 0.6089,
+    "recall_macro": 0.6127
+}

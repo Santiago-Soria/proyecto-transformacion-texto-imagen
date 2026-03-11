@@ -1,0 +1,74 @@
+[
+    {
+        "experiment": "Exp_3.1_BETO_FineTuning",
+        "f1_macro_val": 0.6114,
+        "f1_macro_test": 0.7361,
+        "accuracy_test": 0.7544,
+        "precision_macro": 0.7419,
+        "recall_macro": 0.7325
+    },
+    {
+        "experiment": "Exp_2.1_BETO_Frozen_LogReg",
+        "f1_macro_val": 0.6038,
+        "f1_macro_test": 0.7165,
+        "accuracy_test": 0.7281,
+        "precision_macro": 0.7147,
+        "recall_macro": 0.7195
+    },
+    {
+        "experiment": "Exp_1.2_TFIDF_Stopwords_LogReg",
+        "f1_macro_val": 0.6742,
+        "f1_macro_test": 0.7004,
+        "accuracy_test": 0.7105,
+        "precision_macro": 0.6984,
+        "recall_macro": 0.7052
+    },
+    {
+        "experiment": "Exp_1.1_TFIDF_LogReg",
+        "f1_macro_val": 0.7137,
+        "f1_macro_test": 0.6879,
+        "accuracy_test": 0.7018,
+        "precision_macro": 0.6867,
+        "recall_macro": 0.6896
+    },
+    {
+        "experiment": "Exp_3.2_RoBERTa_FineTuning",
+        "f1_macro_val": 0.6941,
+        "f1_macro_test": 0.6406,
+        "accuracy_test": 0.6579,
+        "precision_macro": 0.6401,
+        "recall_macro": 0.6412
+    },
+    {
+        "experiment": "Exp_2.2_RoBERTa_Frozen_LogReg",
+        "f1_macro_val": 0.6402,
+        "f1_macro_test": 0.6096,
+        "accuracy_test": 0.6228,
+        "precision_macro": 0.6089,
+        "recall_macro": 0.6127
+    },
+    {
+        "experiment": "Exp_2.3_mDeBERTa_Frozen_LogReg",
+        "f1_macro_val": 0.5885,
+        "f1_macro_test": 0.526,
+        "accuracy_test": 0.5526,
+        "precision_macro": 0.5262,
+        "recall_macro": 0.526
+    },
+    {
+        "experiment": "Exp_2.3_mDeBERTa_Frozen_LogReg",
+        "f1_macro_val": 0.5885,
+        "f1_macro_test": 0.526,
+        "accuracy_test": 0.5526,
+        "precision_macro": 0.5262,
+        "recall_macro": 0.526
+    },
+    {
+        "experiment": "Exp_3.4_XLM_FineTuning",
+        "f1_macro_val": 0.6173,
+        "f1_macro_test": 0.526,
+        "accuracy_test": 0.5526,
+        "precision_macro": 0.5262,
+        "recall_macro": 0.526
+    }
+]

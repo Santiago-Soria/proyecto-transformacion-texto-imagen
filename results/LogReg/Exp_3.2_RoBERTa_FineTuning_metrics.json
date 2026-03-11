@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_3.2_RoBERTa_FineTuning",
+    "f1_macro_val": 0.6941,
+    "f1_macro_test": 0.6406,
+    "accuracy_test": 0.6579,
+    "precision_macro": 0.6401,
+    "recall_macro": 0.6412
+}

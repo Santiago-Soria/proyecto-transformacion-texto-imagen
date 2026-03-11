@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_2.1_BETO_Frozen_LogReg",
+    "f1_macro_val": 0.6038,
+    "f1_macro_test": 0.7165,
+    "accuracy_test": 0.7281,
+    "precision_macro": 0.7147,
+    "recall_macro": 0.7195
+}

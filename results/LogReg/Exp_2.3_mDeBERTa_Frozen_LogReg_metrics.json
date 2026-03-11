@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_2.3_mDeBERTa_Frozen_LogReg",
+    "f1_macro_val": 0.5885,
+    "f1_macro_test": 0.526,
+    "accuracy_test": 0.5526,
+    "precision_macro": 0.5262,
+    "recall_macro": 0.526
+}

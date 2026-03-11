@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_3.1_BETO_FineTuning",
+    "f1_macro_val": 0.6114,
+    "f1_macro_test": 0.7361,
+    "accuracy_test": 0.7544,
+    "precision_macro": 0.7419,
+    "recall_macro": 0.7325
+}
