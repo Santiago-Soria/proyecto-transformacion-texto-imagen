@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_3.4_XLM_FineTuning",
+    "f1_macro_val": 0.6173,
+    "f1_macro_test": 0.526,
+    "accuracy_test": 0.5526,
+    "precision_macro": 0.5262,
+    "recall_macro": 0.526
+}

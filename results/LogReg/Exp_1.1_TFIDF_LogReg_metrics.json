@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_1.1_TFIDF_LogReg",
+    "f1_macro_val": 0.7137,
+    "f1_macro_test": 0.6879,
+    "accuracy_test": 0.7018,
+    "precision_macro": 0.6867,
+    "recall_macro": 0.6896
+}

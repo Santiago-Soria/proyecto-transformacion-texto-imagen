@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_2.4_XLM_Frozen_LogReg",
+    "f1_macro_val": 0.6923,
+    "f1_macro_test": 0.6696,
+    "accuracy_test": 0.6842,
+    "precision_macro": 0.6685,
+    "recall_macro": 0.6711
+}

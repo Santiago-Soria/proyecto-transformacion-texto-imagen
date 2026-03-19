@@ -1,0 +1,8 @@
+{
+    "experiment": "Exp_1.2_TFIDF_Stopwords_LogReg",
+    "f1_macro_val": 0.6742,
+    "f1_macro_test": 0.7004,
+    "accuracy_test": 0.7105,
+    "precision_macro": 0.6984,
+    "recall_macro": 0.7052
+}

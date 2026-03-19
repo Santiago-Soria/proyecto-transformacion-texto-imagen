@@ -13,6 +13,8 @@ from transformers import (
     EarlyStoppingCallback,
     set_seed
 )
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # ==============================
 # Reproducibilidad
@@ -72,7 +74,11 @@ def compute_metrics(eval_pred):
 # ==============================
 # Fine-Tuning Principal
 # ==============================
-def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name):
+def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name, models_dir):
+
+    model_path = os.path.join(models_dir, f"{model_name}.pkl")
+    results_dir = os.path.join(models_dir, "..", "results")
+    os.makedirs(results_dir, exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -135,15 +141,5 @@ def run_finetuning(train_texts, train_labels, val_texts, val_labels, model_name)
     os.makedirs("results", exist_ok=True)
     with open(f"results/{safe_model_name}_metrics.json", "w") as f:
         json.dump(final_metrics, f, indent=4)
-
-    # ==========================
-    # Matriz de Confusión
-    # ==========================
-    predictions = trainer.predict(val_ds)
-    preds = np.argmax(predictions.predictions, axis=1)
-    cm = confusion_matrix(val_labels, preds)
-
-    print("\nConfusion Matrix:")
-    print(cm)
 
     return trainer
