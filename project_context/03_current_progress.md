@@ -166,18 +166,35 @@ Contrato técnico definido:
 | Marco | Reacción-Difusión (Gray-Scott) | ⏳ Semana 2 |
 | Santiago | Atractores Extraños (Lorenz)   | ⏳ Semana 2|
 
-Artefactos pendientes del Módulo 2:
- data/shared/umap_params.pkl
+### Artefactos del Módulo 2:
+| Artefacto | Estado | Notas |
+|-----------|--------|-------|
+| `data/shared/umap_params.pkl` | ✅ Generado | 2950 KB, 5 componentes, rango [0,1] verificado |
+| `data/shared/color_scheme_check.png` | ⏳ Pendiente | |
+| `data/images/perlin/` (1,136 imágenes) | ⏳ Pendiente | |
+| `data/images/reaction_diffusion/` (1,136 imágenes) | ⏳ Pendiente | |
+| `data/images/attractor/` (1,136 imágenes) | ⏳ Pendiente | |
+| `data/shared/metadata_{tecnica}_{split}.csv` (9 archivos) | ⏳ Pendiente | |
 
- data/shared/color_scheme_check.png
+### Semana 1 — Log de trabajo
 
- data/images/perlin/ (1,136 imágenes)
+#### umap_params.pkl generado (Santiago)
+- Script: `src/umap/build_share_umap.py`
+- UMAP fit exclusivamente sobre X_train (908 muestras, 768 dims → 5 componentes)
+- MinMaxScaler fit solo en train, transform en los 3 splits
+- Bug corregido: `MinMaxScaler.fit_transform` producía valores fuera de [0,1]
+  por ruido de punto flotante IEEE 754 (ej. `1.0000000000000002`).
+  Solución: `np.clip(scaler.transform(...), 0.0, 1.0)` en los 3 splits.
+  No introduce leakage — el fit del scaler no se modifica.
+- Validación final:
+  - train: [0.000 – 1.000] shape=(908, 5)
+  - val:   [0.000 – 1.000] shape=(114, 5)
+  - test:  [0.000 – 1.000] shape=(114, 5)
+- PKL compartido con Diego y Marco para Semana 2
 
- data/images/reaction_diffusion/ (1,136 imágenes)
-
- data/images/attractor/ (1,136 imágenes)
-
- data/shared/metadata_{tecnica}_{split}.csv (9 archivos)
+#### Decisión metodológica registrada
+- `np.clip` post-scaler es operación legítima (análoga a truncar predicciones
+  al rango factible). No modifica el fit del scaler → sin leakage.
 
 ## MÓDULO 3 - PENDIENTE
 Plan tentativo
