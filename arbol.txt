@@ -1,0 +1,32 @@
+Folder PATH listing for volume Windows
+Volume serial number is 6254-705E
+C:.
+|   .gitignore
+|   arbol.txt
+|   README.md
+|   requeriments.txt
+|   
++---data
+|   +---processed
+|   |       test.csv
+|   |       test_indices.csv
+|   |       train.csv
+|   |       train_indices.csv
+|   |       validation.csv
+|   |       val_indices.csv
+|   |       
+|   \---raw
+|           dataset_depresion.xlsx
+|           
++---notebooks
+|       1_data_preprocessing.ipynb
+|       
++---reports
+|   \---figures
+|           target_distribution.png
+|           
+\---src
+        preprocessing_utils.py
+        stop_words_nltk.txt
+        test_stopwords_personalizada.ipynb
+        
