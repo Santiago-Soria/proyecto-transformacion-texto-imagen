@@ -51,3 +51,4 @@ El conjunto de datos está destinado a la investigación en **Procesamiento del 
 # División estratificada el conjunto de datos:
 - Splits: Train=908 | Val=114 | Test=114
 - Distribución train: Dep=353, No_dep=555
+
